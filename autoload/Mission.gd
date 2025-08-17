@@ -1,5 +1,4 @@
 extends Node
-class_name Mission
 
 signal objective_updated(text: String)
 signal mission_completed(payout: int) # payout for THIS mission

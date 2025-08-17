@@ -14,6 +14,14 @@ config/name="Hired4Death"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Game="*res://autoload/Game.gd"
+NoiseBus="*res://autoload/NoiseBus.gd"
+Mission="*res://autoload/Mission.gd"
+Campaign="*res://autoload/Campaign.gd"
+Economy="*res://autoload/Economy.gd"
+
 [editor_plugins]
 
 enabled=PackedStringArray()

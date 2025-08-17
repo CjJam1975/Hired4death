@@ -1,5 +1,4 @@
 extends Node
-class_name Campaign
 
 signal campaign_updated
 signal contracts_updated(planet_id: StringName, contracts: Array)

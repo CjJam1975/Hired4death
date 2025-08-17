@@ -1,5 +1,4 @@
 extends Node
-class_name NoiseBus
 
 signal noise_emitted(pos: Vector3, amount: float)
 

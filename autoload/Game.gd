@@ -1,5 +1,4 @@
 extends Node
-class_name Game
 
 signal game_state_changed(state: int)
 signal paused_changed(paused: bool)

@@ -1,5 +1,4 @@
 extends Node
-class_name Economy
 
 signal credits_changed(total: int, session: int)
 
