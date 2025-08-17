@@ -16,7 +16,7 @@ config/icon="res://icon.svg"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/asset_agents/plugin.cfg")
+enabled=PackedStringArray()
 
 [rendering]
 

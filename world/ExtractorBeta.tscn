@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://world/ExtractZone.gd" id="1"]
+
+[sub_resource type="CylinderShape3D" id="1"]
+radius = 2.0
+height = 2.0
+
+[node name="ExtractorBeta" type="Area3D"]
+script = ExtResource("1")
+extractor_tag = "beta"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("1")
