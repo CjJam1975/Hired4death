@@ -29,13 +29,77 @@ enabled=PackedStringArray()
 
 [input]
 
+ui_left={
+"deadzone": 0.5,
+"events": [{
+"keycode": 65,
+"physical_keycode": 65,
+"type": "KEY"
+}, {
+"keycode": 16777234,
+"physical_keycode": 16777234,
+"type": "KEY"
+}]
+}
+ui_right={
+"deadzone": 0.5,
+"events": [{
+"keycode": 68,
+"physical_keycode": 68,
+"type": "KEY"
+}, {
+"keycode": 16777236,
+"physical_keycode": 16777236,
+"type": "KEY"
+}]
+}
+ui_up={
+"deadzone": 0.5,
+"events": [{
+"keycode": 87,
+"physical_keycode": 87,
+"type": "KEY"
+}, {
+"keycode": 16777232,
+"physical_keycode": 16777232,
+"type": "KEY"
+}]
+}
+ui_down={
+"deadzone": 0.5,
+"events": [{
+"keycode": 83,
+"physical_keycode": 83,
+"type": "KEY"
+}, {
+"keycode": 16777237,
+"physical_keycode": 16777237,
+"type": "KEY"
+}]
+}
 jump={
 "deadzone": 0.2,
-"events": []
+"events": [{
+"keycode": 32,
+"physical_keycode": 32,
+"type": "KEY"
+}]
 }
 sprint={
 "deadzone": 0.2,
-"events": []
+"events": [{
+"keycode": 16777248,
+"physical_keycode": 16777248,
+"type": "KEY"
+}]
+}
+interact={
+"deadzone": 0.2,
+"events": [{
+"keycode": 69,
+"physical_keycode": 69,
+"type": "KEY"
+}]
 }
 
 [rendering]
