@@ -33,7 +33,7 @@ func _process(delta: float) -> void:
 
 func _on_noise(pos: Vector3, amount: float) -> void:
 	var d := global_transform.origin.distance_to(pos)
-	var effect := amount / max(1.0, d)
+	var effect = amount / max(1.0, d)
 	_intensity = clamp(_intensity + effect * noise_influence, 0.0, 1.0)
 
 func _on_stage_changed(stage_index: int, _total: int) -> void:
@@ -49,7 +49,7 @@ func _try_spawn_wave() -> void:
 	if _active.size() >= max_active_enemies:
 		return
 	var budget := 1 + int(round(_intensity * 4.0))
-	var spawns := min(budget, max_active_enemies - _active.size())
+	var spawns = min(budget, max_active_enemies - _active.size())
 	for i in spawns:
 		var p := _pick_spawn_point()
 		var enemy := _pick_enemy_scene()

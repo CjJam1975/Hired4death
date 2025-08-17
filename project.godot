@@ -27,6 +27,17 @@ Economy="*res://autoload/Economy.gd"
 
 enabled=PackedStringArray()
 
+[input]
+
+jump={
+"deadzone": 0.2,
+"events": []
+}
+sprint={
+"deadzone": 0.2,
+"events": []
+}
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

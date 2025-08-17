@@ -1,12 +1,10 @@
 extends Node
 
-# Optional helper to auto-create input actions at runtime.
-# Add temporarily to main scene, run once, then remove.
 const ACTIONS := {
-	"move_forward": [KEY_W],
-	"move_back": [KEY_S],
-	"move_left": [KEY_A],
-	"move_right": [KEY_D],
+	"ui_up": [KEY_W, KEY_UP],
+	"ui_down": [KEY_S, KEY_DOWN],
+	"ui_left": [KEY_A, KEY_LEFT],
+	"ui_right": [KEY_D, KEY_RIGHT],
 	"jump": [KEY_SPACE],
 	"sprint": [KEY_SHIFT],
 	"interact": [KEY_E],
