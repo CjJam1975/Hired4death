@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://eig5gm7lf2sh"]
+
+[ext_resource type="Script" uid="uid://osoqpi6666ts" path="res://main/Main.gd" id="1"]
+[ext_resource type="Script" uid="uid://1u45t85uotg" path="res://main/MissionBridge.gd" id="2"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1")
+
+[node name="MissionBridge" type="Node" parent="."]
+script = ExtResource("2")

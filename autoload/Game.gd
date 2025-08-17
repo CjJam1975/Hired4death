@@ -5,7 +5,9 @@ signal paused_changed(paused: bool)
 
 enum GameState { HUB, MISSION, PAUSED }
 
-var current_state: int = GameState.HUB setget _set_state
+var current_state: int = GameState.HUB:
+	set = _set_state
+
 var rng := RandomNumberGenerator.new()
 
 func _ready() -> void:

@@ -23,7 +23,7 @@ func _init_default_campaign() -> void:
 	var p := Planet.new()
 	p.id = &"morrow"
 	p.display_name = "Morrow"
-	p.seed = randi()
+	p.planet_seed = randi()
 	p.liberation = 0.12
 	p.heat = 0.35
 	p.faction = bugs
@@ -45,7 +45,7 @@ func _roll_contracts_for_all() -> void:
 		available_contracts[p.id] = _roll_contracts_for_planet(p)
 	emit_signal("contracts_updated", active_planet_id, available_contracts.get(active_planet_id, []))
 
-func _roll_contracts_for_planet(p: Planet) -> Array[Contract]:
+func _roll_contracts_for_planet(_p: Planet) -> Array[Contract]:
 	var arr: Array[Contract] = []
 	var c1 := Contract.new()
 	c1.id = &"salvage_basic"
@@ -87,7 +87,7 @@ func start_contract(planet_id: StringName, contract: Contract) -> void:
 		"required_session_credits": contract.target_value,
 		"reward_base": contract.reward_base,
 		"risk_mult": contract.risk_mult,
-		"planet_seed": p.seed,
+		"planet_seed": p.planet_seed,
 		"faction_id": String(p.faction.id),
 		"heat": p.heat
 	}
@@ -103,7 +103,7 @@ func on_mission_completed(planet_id: StringName, _contract_id: StringName, payou
 	var p := get_planet(planet_id)
 	if p == null:
 		return
-	var lib_gain := clamp(float(payout) / 2000.0, 0.01, 0.08)
+	var lib_gain: float = clamp(float(payout) / 2000.0, 0.01, 0.08)
 	p.liberation = clamp(p.liberation + lib_gain, 0.0, 1.0)
 	p.heat = clamp(p.heat - 0.05, 0.0, 1.0)
 	company_profit_pool += int(payout * 0.25)

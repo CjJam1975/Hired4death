@@ -22,7 +22,7 @@ func _clear_world() -> void:
 func _load_hub() -> void:
 	_clear_world()
 	if ResourceLoader.exists(hub_scene_path):
-		var hub := load(hub_scene_path).instantiate()
+		var hub: Node = load(hub_scene_path).instantiate()
 		add_child(hub)
 		_current_world = hub
 	else:
@@ -31,7 +31,7 @@ func _load_hub() -> void:
 func _load_mission() -> void:
 	_clear_world()
 	if ResourceLoader.exists(mission_scene_path):
-		var world := load(mission_scene_path).instantiate()
+		var world: Node = load(mission_scene_path).instantiate()
 		add_child(world)
 		_current_world = world
 		# HUD
