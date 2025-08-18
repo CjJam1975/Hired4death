@@ -3,14 +3,23 @@ extends Control
 @onready var objective_label: Label = $VBoxContainer/Objective
 @onready var credits_label: Label = $VBoxContainer/Credits
 @onready var stage_label: Label = $VBoxContainer/Stage
+@onready var settings_menu = preload("res://ui/SettingsMenu.tscn").instantiate()
 
 func _ready() -> void:
+	add_child(settings_menu)
 	Mission.objective_updated.connect(_on_objective_updated)
 	Mission.stage_changed.connect(_on_stage_changed)
 	Economy.credits_changed.connect(_on_credits_changed)
 	_on_objective_updated("")
 	_on_credits_changed(Economy.total_credits, Economy.session_credits)
 	_on_stage_changed(0, 1)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		if settings_menu.visible:
+			settings_menu.close()
+		else:
+			settings_menu.open()
 
 func _on_objective_updated(text: String) -> void:
 	objective_label.text = text

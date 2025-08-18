@@ -1,16 +1,19 @@
 extends VBoxContainer
 
-# List of gameplay input actions to allow rebinding
 const GAMEPLAY_ACTIONS := [
 	"ui_up", "ui_down", "ui_left", "ui_right",
 	"jump", "sprint", "interact"
 ]
 
+const SETTINGS_PATH := "user://keybinds.cfg"
+
 var _waiting_for_action: String = ""
 var _action_buttons: Dictionary = {}
+var _loading := false
 
 func _ready() -> void:
 	_draw_keybinds()
+	_load_keybinds()
 
 func _draw_keybinds() -> void:
 	clear()
@@ -20,7 +23,6 @@ func _draw_keybinds() -> void:
 		var label = Label.new()
 		label.text = _action_display_name(action)
 		hbox.add_child(label)
-		
 		var key_name = _get_action_key_name(action)
 		var btn = Button.new()
 		btn.text = key_name
@@ -61,9 +63,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		var ev = InputEventKey.new()
 		ev.keycode = event.keycode
 		InputMap.action_add_event(action, ev)
-		# Update button text
 		if _action_buttons.has(action):
 			_action_buttons[action].text = OS.get_keycode_string(event.keycode)
+		_save_keybinds()
 		_waiting_for_action = ""
 		set_process_unhandled_input(false)
 		get_viewport().set_input_as_handled()
@@ -72,3 +74,31 @@ func clear() -> void:
 	for child in get_children():
 		remove_child(child)
 		child.queue_free()
+
+func _save_keybinds() -> void:
+	if _loading: return
+	var cfg = ConfigFile.new()
+	for action in GAMEPLAY_ACTIONS:
+		var events = InputMap.action_get_events(action)
+		var keys = []
+		for ev in events:
+			if ev is InputEventKey:
+				keys.append(ev.keycode)
+		cfg.set_value("keybinds", action, keys)
+	cfg.save(SETTINGS_PATH)
+
+func _load_keybinds() -> void:
+	_loading = true
+	var cfg = ConfigFile.new()
+	var err = cfg.load(SETTINGS_PATH)
+	if err == OK:
+		for action in GAMEPLAY_ACTIONS:
+			if cfg.has_section_key("keybinds", action):
+				InputMap.action_erase_events(action)
+				var keys = cfg.get_value("keybinds", action, [])
+				for k in keys:
+					var ev = InputEventKey.new()
+					ev.keycode = k
+					InputMap.action_add_event(action, ev)
+	_draw_keybinds()
+	_loading = false
