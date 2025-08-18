@@ -18,8 +18,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		if settings_menu.visible:
 			settings_menu.close()
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		else:
 			settings_menu.open()
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func _on_objective_updated(text: String) -> void:
 	objective_label.text = text

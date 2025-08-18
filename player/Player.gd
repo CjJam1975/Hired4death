@@ -4,7 +4,7 @@ extends CharacterBody3D
 @export var sprint_speed: float = 9.0
 @export var acceleration: float = 12.0
 @export var jump_velocity: float = 5.5
-@export var mouse_sens: float = 0.08
+@export var mouse_sens: float = 0.05
 @export var interact_distance: float = 3.0
 
 @onready var cam_pivot: Node3D = $CamPivot
@@ -29,11 +29,9 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	_print_current_keybinds()
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		_rotate_look(event.relative)
-	elif event.is_action_pressed("interact"):
-		_try_interact()
 
 func _physics_process(delta: float) -> void:
 	var input_dir := Vector2(
