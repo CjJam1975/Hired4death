@@ -23,11 +23,14 @@ const ACTIONS := {
 	"interact": [KEY_E],
 }
 
+var _hud: Control = null
+
 func _ready() -> void:
 	_setup_default_keybinds()
 	add_to_group("player")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	_print_current_keybinds()
+	_hud = get_tree().get_first_node_in_group("HUD")
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
@@ -50,6 +53,7 @@ func _physics_process(delta: float) -> void:
 	elif Input.is_action_just_pressed("jump"):
 		velocity.y = jump_velocity
 	move_and_slide()
+	_update_interact_prompt()
 
 func _rotate_look(rel: Vector2) -> void:
 	rotation_degrees.y -= rel.x * mouse_sens
@@ -68,6 +72,23 @@ func _try_interact() -> void:
 		var collider = result.get("collider")
 		if collider and collider.is_in_group("interactable") and collider.has_method("interact"):
 			collider.interact(self)
+
+func _update_interact_prompt() -> void:
+	var space_state := get_world_3d().direct_space_state
+	var from: Vector3 = camera.global_transform.origin
+	var to: Vector3 = from + camera.global_transform.basis.z * -interact_distance
+	var params := PhysicsRayQueryParameters3D.create(from, to)
+	params.collide_with_areas = true
+	params.collide_with_bodies = true
+	var result := space_state.intersect_ray(params)
+	if result.size() > 0:
+		var collider = result.get("collider")
+		if collider and collider.is_in_group("interactable") and collider.has("prompt"):
+			if _hud and _hud.has_method("set_prompt"):
+				_hud.set_prompt("%s (E)" % collider.prompt)
+			return
+	if _hud and _hud.has_method("set_prompt"):
+		_hud.set_prompt("")
 
 func _setup_default_keybinds() -> void:
 	for action in ACTIONS.keys():
