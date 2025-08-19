@@ -7,6 +7,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1")
 
 [node name="Panel" type="Panel" parent="."]
@@ -223,6 +225,17 @@ text = "Interact"
 [node name="InteractButton" type="Button" parent="Panel/VBoxContainer/TabContainer/KeybindsTab/Keybinds_InteractRow"]
 layout_mode = 2
 text = "E"
+
+[node name="Keybinds_CrouchRow" type="HBoxContainer" parent="Panel/VBoxContainer/TabContainer/KeybindsTab"]
+layout_mode = 2
+
+[node name="CrouchLabel" type="Label" parent="Panel/VBoxContainer/TabContainer/KeybindsTab/Keybinds_CrouchRow"]
+layout_mode = 2
+text = "Crouch"
+
+[node name="CrouchButton" type="Button" parent="Panel/VBoxContainer/TabContainer/KeybindsTab/Keybinds_CrouchRow"]
+layout_mode = 2
+text = "Ctrl"
 
 [node name="BottomButtons" type="HBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2

@@ -19,7 +19,8 @@ extends Control
 	"ui_right": $Panel/VBoxContainer/TabContainer/KeybindsTab/Keybinds_MoveRightRow/MoveRightButton,
 	"jump": $Panel/VBoxContainer/TabContainer/KeybindsTab/Keybinds_JumpRow/JumpButton,
 	"sprint": $Panel/VBoxContainer/TabContainer/KeybindsTab/Keybinds_SprintRow/SprintButton,
-	"interact": $Panel/VBoxContainer/TabContainer/KeybindsTab/Keybinds_InteractRow/InteractButton
+	"interact": $Panel/VBoxContainer/TabContainer/KeybindsTab/Keybinds_InteractRow/InteractButton,
+	"crouch": $Panel/VBoxContainer/TabContainer/KeybindsTab/Keybinds_CrouchRow/CrouchButton
 }
 
 @onready var back_button: Button = $Panel/VBoxContainer/BottomButtons/BackButton

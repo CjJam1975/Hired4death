@@ -1,8 +1,9 @@
 extends VBoxContainer
 
+# Added "crouch" to support crouch keybinding in the menu.
 const GAMEPLAY_ACTIONS := [
 	"ui_up", "ui_down", "ui_left", "ui_right",
-	"jump", "sprint", "interact"
+	"jump", "sprint", "interact", "crouch" # <-- ADDED crouch
 ]
 
 const SETTINGS_PATH := "user://keybinds.cfg"
@@ -40,6 +41,7 @@ func _action_display_name(action: String) -> String:
 		"jump": return "Jump"
 		"sprint": return "Sprint"
 		"interact": return "Interact"
+		"crouch": return "Crouch" # <-- ADDED display label for crouch
 		_: return action
 
 func _get_action_key_name(action: String) -> String:

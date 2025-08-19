@@ -8,6 +8,7 @@ const ACTIONS := {
 	"jump": [KEY_SPACE],
 	"sprint": [KEY_SHIFT],
 	"interact": [KEY_E],
+	"crouch": [KEY_CTRL],
 }
 
 func _ready() -> void:
