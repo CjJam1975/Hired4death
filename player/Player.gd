@@ -75,6 +75,10 @@ func _physics_process(delta: float) -> void:
 		velocity.y = jump_velocity
 	move_and_slide()
 	_update_interact_prompt()
+	# Debug: show when interact is attempted
+	if Input.is_action_just_pressed("interact"):
+		print_debug("[Interact Debug] Interact key pressed.")
+		_try_interact()
 
 func _rotate_look(rel: Vector2) -> void:
 	rotation_degrees.y -= rel.x * mouse_sens
@@ -91,8 +95,17 @@ func _try_interact() -> void:
 	var result := space_state.intersect_ray(params)
 	if result.size() > 0:
 		var collider = result.get("collider")
-		if collider and collider.is_in_group("interactable") and collider.has_method("interact"):
-			collider.interact(self)
+		var interactable = collider
+		# If collider isn't interactable, check its parent (for Area3D -> LootPickup)
+		if not (collider.is_in_group("interactable") and collider.has_method("interact")) and collider.get_parent():
+			if collider.get_parent().is_in_group("interactable") and collider.get_parent().has_method("interact"):
+				interactable = collider.get_parent()
+		if interactable.is_in_group("interactable") and interactable.has_method("interact"):
+			print_debug("[Interact Debug] Interacting with: ", interactable.name, " (", interactable, ")")
+			interactable.interact(self)
+		else:
+			print_debug("[Interact Debug] Ray hit non-interactable (on interact): ", collider.name, " (", collider, ")")
+
 
 func _update_interact_prompt() -> void:
 	var space_state := get_world_3d().direct_space_state
@@ -104,10 +117,22 @@ func _update_interact_prompt() -> void:
 	var result := space_state.intersect_ray(params)
 	if result.size() > 0:
 		var collider = result.get("collider")
-		if collider and collider.is_in_group("interactable") and collider.has("prompt"):
+		var interactable = collider
+		# If collider isn't interactable, check its parent (Area3D -> LootPickup)
+		if not (collider.is_in_group("interactable") and "prompt" in collider) and collider.get_parent():
+			if collider.get_parent().is_in_group("interactable") and "prompt" in collider.get_parent():
+				interactable = collider.get_parent()
+		if interactable.is_in_group("interactable") and "prompt" in interactable:
+			print_debug("[Interact Debug] Looking at interactable: ", interactable.name, " (", interactable, ") with prompt: ", interactable.prompt)
 			if _hud and _hud.has_method("set_prompt"):
-				_hud.set_prompt("%s (E)" % collider.prompt)
+				_hud.set_prompt("%s (E)" % interactable.prompt)
 			return
+		else:
+			if collider:
+				print_debug("[Interact Debug] Ray hit non-interactable: ", collider.name, " (", collider, ")")
+			else:
+				print_debug("[Interact Debug] Ray hit unknown object.")
+	print_debug("[Interact Debug] No interactable detected in view.")
 	if _hud and _hud.has_method("set_prompt"):
 		_hud.set_prompt("")
 

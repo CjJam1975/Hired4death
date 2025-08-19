@@ -26,7 +26,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func set_prompt(text: String) -> void:
+	print_debug("[HUD Prompt] set_prompt called with text: ", text)
 	prompt_label.text = text
+	prompt_label.modulate = Color.BLACK # Sets prompt color to black for visibility
 
 func _on_objective_updated(text: String) -> void:
 	objective_label.text = text
